@@ -1,16 +1,45 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import store from './app/store';
+import App from './components/App';
+//import store from './app/store';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+
+import rootReducer from './reducers';
+//import startGame from './actions/settings';
+
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+console.log('store:',{store}); 
+//console.log('store state 1:',store.getState()); 
+store.subscribe(() => console.log('store.getstate', store.getState()));
+
+
+
+/* const action1 = startGame();
+store.dispatch(action1); */
+/* store.dispatch(startGame());
+store.dispatch(cancelGame());
+store.dispatch(expandInstructions());
+store.dispatch(cancelInstructions()); */
+
+ReactDOM.render(<React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
+</React.StrictMode>,
+  document.getElementById('root'));
+/* import store from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(
+ */
+/* ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-    </Provider>
+    </Provider> 
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -18,4 +47,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.unregister(); */
